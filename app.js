@@ -103,8 +103,8 @@ app.get("/contact", function (req, res) {
 
 
 
-app.listen(3000, function () {
-  console.log("Server has started sucessfully at 3000");
+app.listen(process.env.PORT || 8000, function () {
+  console.log("Server has started sucessfully at 8000");
 });
 
 
