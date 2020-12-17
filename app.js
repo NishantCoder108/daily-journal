@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require('mongoose');
-const { lowerCase } = require("lodash");
+const _ = require("lodash");
 
 
 
@@ -21,20 +21,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 const posts = [];
-/*
-
-mongoose.connect("mongodb://localhost:27017/blogSiteDB", {useNewUrlParser: true, useUnifiedTopology: true});
-
-const blogSchema = {
-    title: String,
-    content: String
-};
 
 
 
-const Post = mongoose.model("Post", blogSchema);
-
-*/
 
 app.get("/", function (req, res) {
 
@@ -63,10 +52,10 @@ app.post("/compose", function (req, res) {
 
 app.get("/posts/:postId", function (req, res) {
 
-  const requestedPostId = req.params.postId;
+  const requestedPostId = _.lowerCase(req.params.postId);
 
   posts.forEach(function (post) {
-    const storeData = post.title;
+    const storeData = _.lowerCase(post.title) ;
 
     if (storeData === requestedPostId) {
       res.render("post", {
@@ -74,9 +63,7 @@ app.get("/posts/:postId", function (req, res) {
         content: post.content
       });
     }
-    else{
-   res.send("Not Found");
-    }
+    
   })
 
  
@@ -108,4 +95,3 @@ app.listen(process.env.PORT || 8000, function () {
 });
 
 
-// Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum officiis tenetur ducimus praesentium doloribus eaque accusamus debitis qui, ipsum culpa officia esse iure quia similique natus soluta molestiae deserunt nam repellendus illo. Ipsum, consequuntur quisquam! Accusamus dolore itaque sapiente voluptatibus praesentium id eius fuga voluptates nulla impedit optio exercitationem in non repellat obcaecati suscipit ad iusto unde, consectetur minima molestias magni sequi? Error tempora ex sequi. Illo magnam, reprehenderit quaerat tempore natus quo iure deleniti ipsa amet cupiditate eos fugit doloremque officiis perspiciatis, labore ab autem. Assumenda molestiae nisi iusto a autem! Facilis possimus assumenda ea, praesentium magni rerum, adipisci dolores voluptas qui animi impedit ipsum, aliquid eveniet. Repellat dicta sint sequi obcaecati vitae mollitia voluptatibus doloribus dolore omnis eos cupiditate eaque nobis, nesciunt ab atque alias tempora commodi ullam similique placeat eligendi, quisquam labore! Accusamus quis earum ipsam, nostrum placeat voluptates nobis ratione ex, itaque optio minima. Labore tempora perferendis necessitatibus voluptatum laudantium dolorum sunt ratione quo! Ad iure ipsa magni earum porro ipsam dignissimos velit maiores. Deserunt non placeat voluptate harum iste quam nihil hic nisi dolores distinctio dolor dicta ut consequuntur esse, quae tenetur corrupti vel voluptatibus amet. Dolor quisquam quam deserunt voluptatibus rem iste! Fuga inventore ad voluptatem? Dignissimos consectetur consequuntur in quas, iure molestias laudantium facilis aspernatur, ex ab ratione ut perspiciatis enim omnis deleniti error. Illum delectus, beatae nihil omnis officia eaque voluptatem dolorum sit inventore ipsa. Pariatur exercitationem dolor quisquam iusto nemo nulla quae odit, corporis perferendis similique nam, ducimus laboriosam libero dolorem at eum earum necessitatibus debitis quas, totam eligendi ad nisi. Aliquam, quasi vel! Laudantium sint alias quo voluptate ad placeat harum cumque est dicta iure veniam, ipsa ducimus possimus! Nisi expedita magni illo illum error culpa dicta sapiente, aspernatur eum assumenda. Voluptate, voluptatibus perspiciatis? Corrupti odit consectetur dolorum harum atque ex quasi iste expedita nostrum, ducimus molestiae, ipsa dolores amet officiis. Neque doloremque minus tempora modi aliquid, voluptatem magni rem, voluptates quo architecto minima voluptatum totam dolorem in sunt voluptatibus cum, nam possimus dicta perferendis ratione id delectus porro! Quo corrupti ab iusto asperiores?
